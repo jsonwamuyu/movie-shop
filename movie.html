@@ -153,7 +153,6 @@
       }
     }
 
-    // Create or Update Movie (CREATE/UPDATE)
     movieForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -164,7 +163,6 @@
       const movie = { title, description, image, year };
 
       if (editingMovieId) {
-        // Update movie
         await fetch(`${API_URL}/${editingMovieId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
@@ -173,7 +171,6 @@
         editingMovieId = null;
         submitButton.textContent = 'Add Movie';
       } else {
-        // Add movie
         await fetch(API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -184,8 +181,6 @@
       movieForm.reset();
       fetchMovies();
     });
-
-    // Edit Movie (READ for specific ID)
     async function editMovie(id) {
       const response = await fetch(`${API_URL}/${id}`);
       const movie = await response.json();
@@ -199,17 +194,14 @@
       submitButton.textContent = 'Update Movie';
     }
 
-    // Delete Movie (DELETE)
     async function deleteMovie(id) {
       await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
       fetchMovies();
     }
 
-    // Search and Sort Event Listeners
     searchInput.addEventListener('input', fetchMovies);
     sortOptions.addEventListener('change', fetchMovies);
 
-    // Initial Fetch
     fetchMovies();
   </script>
 </body>
